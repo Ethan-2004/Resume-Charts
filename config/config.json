@@ -1,0 +1,7 @@
+{
+    "model_config": {
+        "model_name": "glm-4-flash-250414",
+        "api_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "api_key": ""
+    }
+}
