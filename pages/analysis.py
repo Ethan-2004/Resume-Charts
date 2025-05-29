@@ -14,26 +14,34 @@ from utils.secret import decrypt_api_key
 def display_analysis(phonenumber: str, username: str):
     st.title("📊 简历分析中心")
 
-    resume_id, resume_name, file_path = select_resume(phonenumber)
-    if not resume_id:
-        st.info("暂无简历，请先上传。")
-        return
+    # 🧱 放在侧边栏区域
+    with st.sidebar:
+        resume_id, resume_name, file_path = select_resume(phonenumber)
+        if not resume_id:
+            st.info("暂无简历，请先上传。")
+            return
 
-    job_data_row, job_display, job_full_description = select_job()
-    api_name, api_url, api_key = select_model(phonenumber)
+        job_data_row, job_display, job_full_description = select_job()
+        api_name, api_url, api_key = select_model(phonenumber)
 
-    if st.button("🚀 开始分析"):
-        process_resume_analysis(
-            resume_id=resume_id,
-            resume_file_path=file_path,
-            job_data_row=job_data_row,
-            job_display=job_display,
-            job_full_description=job_full_description,
-            api_name=api_name,
-            api_url=api_url,
-            api_key=api_key,
-            phonenumber=phonenumber
-        )
+        # 分析按钮在侧边栏
+        do_analysis = st.button("🚀 开始分析")
+
+    # ✅ 主区域显示分析结果（点击后才显示）
+    if do_analysis:
+        with st.spinner("正在分析中，请稍候..."):
+            result = process_resume_analysis(
+                resume_id=resume_id,
+                resume_file_path=file_path,
+                job_data_row=job_data_row,
+                job_display=job_display,
+                job_full_description=job_full_description,
+                api_name=api_name,
+                api_url=api_url,
+                api_key=api_key,
+                phonenumber=phonenumber
+            )
+
 
 
 # 🧩 选择简历
@@ -181,4 +189,5 @@ def score_display_lines(score_dict):
 
 # ✅ 页面测试入口（非 Streamlit 页面部署环境下可用）
 if __name__ == "__main__":
+  
     display_analysis(phonenumber="18326660594", username="zhs")

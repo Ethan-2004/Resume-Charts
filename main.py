@@ -89,12 +89,12 @@ with co2:
 # 四、该简历所有分析记录的总分趋势图
 st.subheader("📉 总分趋势图")
 trend_df = resume_filtered.sort_values(by='analysis_time')
-trend_option = {
-    "xAxis": {"type": "category", "data": trend_df['analysis_time'].astype(str).tolist()},
-    "yAxis": {"type": "value"},
-    "series": [{"data": trend_df['overall_score'].tolist(), "type": "line"}]
-}
-st_echarts(trend_option, height="400px")
+# trend_option = {
+#     "xAxis": {"type": "category", "data": trend_df['analysis_time'].astype(str).tolist()},
+#     "yAxis": {"type": "value"},
+#     "series": [{"data": trend_df['overall_score'].tolist(), "type": "line"}]
+# }
+# st_echarts(trend_option, height="400px")
 
 import pyecharts.options as opts
 from pyecharts.charts import Line
